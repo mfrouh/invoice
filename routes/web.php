@@ -11,8 +11,29 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('backend')->middleware('auth')->namespace('Backend')->group(function () {
+    Route::get('dashboard', 'DashboardController')->name('dashboard');
+
+    Route::middleware('can:Admin')->namespace('Admin')->as('admin.')->group(function () {
+        Route::apiResource('category', 'CategoryController');
+        Route::get('orders', 'OrderController')->name('orders');
+        Route::get('products', 'ProductController')->name('products');
+    });
+
+    Route::middleware('can:Seller')->namespace('Seller')->as('seller.')->group(function () {
+        Route::apiResource('product', 'ProductController');
+    });
+
+});
+
+Route::namespace ('Frontend')->group(function () {
+    Route::middleware(['auth', 'can:Customer'])->namespace('Customer')->as('customer.')->group(function () {
+        Route::apiResource('order', 'OrderController');
+    });
 });
