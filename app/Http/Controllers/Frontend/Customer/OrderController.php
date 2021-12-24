@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Frontend\Customer;
 
-use App\Models\Order;
-use Illuminate\Http\Request;
-use App\Http\Requests\OrderRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderRequest;
+use App\Models\Order;
 
 class OrderController extends Controller
 {
-        /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -29,6 +28,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
+
         Order::create($request->validated());
 
         return response()->json(['message' => 'Success Created'], 201);
@@ -42,7 +42,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return response()->json(['data' => $order], 200);
+        return response()->json(['data' => $order->with('orderDetails', 'invoice')], 200);
     }
 
     /**

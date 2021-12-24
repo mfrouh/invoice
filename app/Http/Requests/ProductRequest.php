@@ -23,6 +23,16 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
+        if (request()->isMethod('post')) {
+            return $this->createRequest();
+        }
+        if (request()->isMethod('put') || request()->isMethod('patch')) {
+            return $this->updateRequest();
+        }
+    }
+
+    protected function createRequest()
+    {
         return [
             'name' => 'required|unique:products,name',
             'status' => 'required|boolean',
@@ -32,4 +42,17 @@ class ProductRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
         ];
     }
+
+    protected function updateRequest()
+    {
+        return [
+            'name' => 'required|unique:products,name,' . request()->route('product')->id,
+            'status' => 'required|boolean',
+            'price' => 'required|numeric',
+            'image' => 'required|image',
+            'description' => 'required',
+            'category_id' => 'required|exists:categories,id',
+        ];
+    }
+
 }

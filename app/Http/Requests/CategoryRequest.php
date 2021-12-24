@@ -23,8 +23,26 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        if (request()->isMethod('post')) {
+            return $this->createRequest();
+        }
+        if (request()->isMethod('put') || request()->isMethod('patch')) {
+            return $this->updateRequest();
+        }
+    }
+
+    protected function createRequest()
+    {
         return [
             'name' => 'required|unique:categories,name',
+            'status' => 'required|boolean',
+        ];
+    }
+
+    protected function updateRequest()
+    {
+        return [
+            'name' => 'required|unique:categories,name,' . request()->route('category')->id,
             'status' => 'required|boolean',
         ];
     }

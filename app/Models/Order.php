@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_id', 'seller_id', 'total'];
+    protected $fillable = ['customer_id', 'seller_id', 'total', 'invoice_qr_code', 'tax', 'ship', 'discount'];
 
     /**
      * Get the customer that owns the Order

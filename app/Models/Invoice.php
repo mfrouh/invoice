@@ -10,7 +10,7 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['invoice_qr_code', 'tax', 'ship', 'items', 'order_id'];
+    protected $fillable = ['order_id', 'url'];
 
     /**
      * Get the order associated with the Invoice

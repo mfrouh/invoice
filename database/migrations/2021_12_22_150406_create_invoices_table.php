@@ -14,11 +14,8 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id()->startingValue(2000);
-            $table->uuid('invoice_qr_code')->unique();
-            $table->decimal('tax')->nullable();
-            $table->decimal('ship')->nullable();
-            $table->json('items');
+            $table->id();
+            $table->string('url');
             $table->foreignId('order_id')->index()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

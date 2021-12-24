@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::where('seller_id', auth()->user()->id)->get();
 
         return response()->json(['data' => $products], 200);
     }
@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
+        auth()->user()->products()->create($request->validated());
 
         return response()->json(['message' => 'Success Created'], 201);
     }
