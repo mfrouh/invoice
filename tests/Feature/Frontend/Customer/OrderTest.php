@@ -6,9 +6,12 @@ use App\Mail\InvoiceMail;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\User;
+use App\Notifications\Customer\CreateOrderNotification;
+use App\Notifications\Seller\CreateOrderNotification as SellerCreateOrderNotification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class OrderTest extends TestCase
@@ -54,6 +57,7 @@ class OrderTest extends TestCase
     public function test_user_can_create_order_success()
     {
         Mail::fake();
+        Notification::fake();
         Cart::factory(10)->create(['customer_id' => $this->customer]);
         $this->actingAs($this->customer)
             ->post(route('customer.order.store'),
@@ -65,9 +69,18 @@ class OrderTest extends TestCase
         $this->assertDatabaseCount('orders', 1);
         $this->assertDatabaseCount('order_details', 10);
         $this->assertDatabaseCount('invoices', 1);
+
         Mail::assertSent(InvoiceMail::class, function ($mail) {
-            return $mail->hasTo($this->customer->email) ;
+            return $mail->hasTo($this->customer->email);
         });
+
+        Notification::assertSentTo(
+            [$this->customer], CreateOrderNotification::class
+        );
+
+        Notification::assertSentTo(
+            [$this->seller], SellerCreateOrderNotification::class
+        );
     }
 
 }
