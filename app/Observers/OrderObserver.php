@@ -2,8 +2,10 @@
 
 namespace App\Observers;
 
+use App\Mail\InvoiceMail;
 use App\Models\Cart;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
 
 class OrderObserver
 {
@@ -17,6 +19,7 @@ class OrderObserver
     {
         $order->orderDetails()->createMany(Cart::getContent()->toArray());
         $order->invoice()->create(['url' => '/pdf']);
+        Mail::to($order->customer->email)->send(new InvoiceMail());
         Cart::clear();
     }
 

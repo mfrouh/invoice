@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Frontend\Customer;
 
+use App\Mail\InvoiceMail;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class OrderTest extends TestCase
@@ -51,8 +53,8 @@ class OrderTest extends TestCase
 
     public function test_user_can_create_order_success()
     {
+        Mail::fake();
         Cart::factory(10)->create(['customer_id' => $this->customer]);
-
         $this->actingAs($this->customer)
             ->post(route('customer.order.store'),
                 ['customer_id' => $this->customer->id,
@@ -63,6 +65,9 @@ class OrderTest extends TestCase
         $this->assertDatabaseCount('orders', 1);
         $this->assertDatabaseCount('order_details', 10);
         $this->assertDatabaseCount('invoices', 1);
+        Mail::assertSent(InvoiceMail::class, function ($mail) {
+            return $mail->hasTo($this->customer->email) ;
+        });
     }
 
 }
