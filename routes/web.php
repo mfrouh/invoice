@@ -17,8 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__ . '/auth.php';
+
 Route::prefix('backend')->middleware('auth')->namespace('Backend')->group(function () {
-    Route::get('dashboard', 'DashboardController')->name('dashboard');
+    // Route::get('dashboard', 'DashboardController')->name('dashboard');
 
     Route::middleware('can:Admin')->namespace('Admin')->as('admin.')->group(function () {
         Route::apiResource('category', 'CategoryController');
