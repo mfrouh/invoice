@@ -35,5 +35,7 @@ Route::prefix('backend')->middleware('auth')->namespace('Backend')->group(functi
 Route::namespace ('Frontend')->group(function () {
     Route::middleware(['auth', 'can:Customer'])->namespace('Customer')->as('customer.')->group(function () {
         Route::apiResource('order', 'OrderController');
+        Route::delete('cart', 'CartController@clear')->name('cart.clear');
+        Route::apiResource('cart', 'CartController')->except('update', 'show');
     });
 });

@@ -28,7 +28,6 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-
         Order::create($request->validated());
 
         return response()->json(['message' => 'Success Created'], 201);

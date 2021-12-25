@@ -12,7 +12,7 @@ class OrderDetails extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_id', 'product_id', 'name', 'price', 'quantity', 'details', 'total'];
+    protected $fillable = ['order_id', 'product_id', 'name', 'price', 'quantity', 'details', 'total_price'];
 
     /**
      * Get the order that owns the OrderDetails

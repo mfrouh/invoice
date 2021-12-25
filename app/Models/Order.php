@@ -41,7 +41,7 @@ class Order extends Model
      */
     public function invoice(): HasOne
     {
-        return $this->hasOne(Order::class);
+        return $this->hasOne(Invoice::class);
     }
 
     /**
