@@ -83,4 +83,33 @@ class OrderTest extends TestCase
         );
     }
 
+    public function test_user_cannot_create_order_where_cart_empty()
+    {
+        Mail::fake();
+        Notification::fake();
+        $this->actingAs($this->customer)
+            ->post(route('customer.order.store'),
+                ['customer_id' => $this->customer->id,
+                    'seller_id' => $this->seller->id, 'total' => 199, 'invoice_qr_code' => $this->faker->uuid])
+            ->assertSeeText('Your Cart Is Empty')
+            ->assertForbidden();
+
+        $this->assertDatabaseCount('carts', 0);
+        $this->assertDatabaseCount('orders', 0);
+        $this->assertDatabaseCount('order_details', 0);
+        $this->assertDatabaseCount('invoices', 0);
+
+        Mail::assertNotSent(InvoiceMail::class, function ($mail) {
+            return $mail->hasTo($this->customer->email);
+        });
+
+        Notification::assertNotSentTo(
+            [$this->customer], CreateOrderNotification::class
+        );
+
+        Notification::assertNotSentTo(
+            [$this->seller], SellerCreateOrderNotification::class
+        );
+    }
+
 }

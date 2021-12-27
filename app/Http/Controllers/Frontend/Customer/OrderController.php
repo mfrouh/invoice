@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
+use App\Models\Cart;
 use App\Models\Order;
 
 class OrderController extends Controller
@@ -28,6 +29,9 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
+        if (Cart::getContent()->count() == 0) {
+            return abort(403, 'Your Cart Is Empty');
+        }
         Order::create($request->validated());
 
         return response()->json(['message' => 'Success Created'], 201);
