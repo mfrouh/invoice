@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Seller;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
-use App\Models\Product;
+use App\Http\Requests\OrderRequest;
+use App\Models\Cart;
+use App\Models\Order;
 
-class ProductController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('seller_id', auth()->user()->id)->get();
+        $orders = Order::with('orderDetails')->where('customer_id', auth()->user()->id)->get();
 
-        return response()->json(['data' => $products], 200);
+        return response()->json(['data' => $orders], 200);
     }
 
     /**
@@ -26,9 +27,12 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(OrderRequest $request)
     {
-        auth()->user()->products()->create($request->validated());
+        if (Cart::getContent()->count() == 0) {
+            return abort(403, 'Your Cart Is Empty');
+        }
+        Order::create($request->validated());
 
         return response()->json(['message' => 'Success Created'], 201);
     }
@@ -36,24 +40,24 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Order $order)
     {
-        return response()->json(['data' => $product], 200);
+        return response()->json(['data' => $order->with('orderDetails', 'invoice')], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, product $product)
+    public function update(OrderRequest $request, order $order)
     {
-        $product->update($request->validated());
+        $order->update($request->validated());
 
         return response()->json(['message' => 'Success Updated'], 200);
     }
@@ -61,12 +65,12 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Order $order)
     {
-        $product->delete();
+        $order->delete();
 
         return response()->json(['message' => 'Success Deleted'], 200);
     }

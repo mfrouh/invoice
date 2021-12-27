@@ -17,31 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__ . '/auth.php';
 
-Route::prefix('backend')->middleware('auth')->namespace('Backend')->group(function () {
-    // Route::get('dashboard', 'DashboardController')->name('dashboard');
-
-    Route::middleware('can:Admin')->namespace('Admin')->as('admin.')->group(function () {
-        Route::apiResource('category', 'CategoryController');
-        Route::get('orders', 'OrderController')->name('orders');
-        Route::get('products', 'ProductController')->name('products');
-    });
-
-    Route::middleware('can:Seller')->namespace('Seller')->as('seller.')->group(function () {
-        Route::apiResource('product', 'ProductController');
-    });
+Route::prefix('backend')->middleware(['auth', 'can:Admin'])->namespace('Backend')->group(function () {
+    Route::get('dashboard', 'DashboardController')->name('dashboard');
+    Route::get('orders', 'OrderController')->name('orders');
+    Route::apiResource('category', 'CategoryController');
+    Route::apiResource('product', 'ProductController');
 
 });
 
-Route::namespace ('Frontend')->group(function () {
-    Route::middleware(['auth', 'can:Customer'])->namespace('Customer')->as('customer.')->group(function () {
-        Route::apiResource('order', 'OrderController');
-        Route::delete('cart', 'CartController@clear')->name('cart.clear');
-        Route::apiResource('cart', 'CartController')->except('update', 'show');
-    });
+Route::namespace ('Frontend')->middleware(['auth', 'can:Customer'])->group(function () {
+    Route::get('dashboard', 'DashboardController')->name('dashboard');
+    Route::apiResource('order', 'OrderController');
+    Route::delete('cart', 'CartController@clear')->name('cart.clear');
+    Route::apiResource('cart', 'CartController')->except('update', 'show');
 });

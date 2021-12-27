@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,8 +15,6 @@ class ProductController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $products = Product::all();
-
-        return response()->json(['data' => $products], 200);
+        return view('dashboard');
     }
 }

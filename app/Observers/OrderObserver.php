@@ -6,7 +6,6 @@ use App\Mail\InvoiceMail;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Notifications\Customer\CreateOrderNotification;
-use App\Notifications\Seller\CreateOrderNotification as SellerNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
@@ -24,7 +23,6 @@ class OrderObserver
         $order->invoice()->create(['url' => '/pdf']);
         Mail::to($order->customer->email)->send(new InvoiceMail());
         Notification::send($order->customer, new CreateOrderNotification($order));
-        Notification::send($order->seller, new SellerNotification($order));
         Cart::clear();
     }
 

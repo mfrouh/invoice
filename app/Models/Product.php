@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'status', 'price', 'image', 'description', 'category_id', 'seller_id'];
+    protected $fillable = ['name', 'status', 'price', 'image', 'description', 'category_id'];
 
     /**
      * Get the category that owns the Product
@@ -21,15 +21,4 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-
-    /**
-     * Get the user that owns the Product
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'seller_id');
-    }
-
 }

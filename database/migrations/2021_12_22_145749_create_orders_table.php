@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration
             $table->id()->startingValue(1996000);
             $table->uuid('invoice_qr_code')->unique();
             $table->foreignId('customer_id')->index()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('seller_id')->index()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('tax')->nullable();
             $table->decimal('ship')->nullable();
             $table->decimal('discount')->nullable();

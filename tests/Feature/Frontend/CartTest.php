@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Frontend\Customer;
+namespace Tests\Feature\Frontend;
 
 use App\Models\Cart;
 use App\Models\Product;
@@ -19,13 +19,12 @@ class CartTest extends TestCase
 
         $this->admin = User::factory()->create(['role' => 'Admin']);
         $this->customer = User::factory()->create(['role' => 'Customer']);
-        $this->seller = User::factory()->create(['role' => 'Seller']);
     }
 
     public function test_customer_can_see_his_cart()
     {
         $this->actingAs($this->customer)
-            ->get(route('customer.cart.index'))
+            ->get(route('cart.index'))
             ->assertSimilarJson(['data' => []])
             ->assertSuccessful();
 
@@ -33,7 +32,7 @@ class CartTest extends TestCase
         Cart::factory(10)->create(['customer_id' => User::factory()->create(['role' => 'Customer'])]);
 
         $this->actingAs($this->customer)
-            ->get(route('customer.cart.index'))
+            ->get(route('cart.index'))
             ->assertJsonCount(10, 'data')
             ->assertSuccessful();
         $this->assertDatabaseCount('carts', 20);
@@ -45,25 +44,25 @@ class CartTest extends TestCase
         $product = Product::factory()->create();
 
         $this->actingAs($this->customer)
-            ->post(route('customer.cart.store'), ['product_id' => $product->id, 'quantity' => 2])
+            ->post(route('cart.store'), ['product_id' => $product->id, 'quantity' => 2])
             ->assertCreated();
 
         $this->assertDatabaseHas('carts', ['product_id' => $product->id, 'quantity' => 2]);
         $this->assertDatabaseCount('carts', 1);
 
         $this->actingAs($this->customer)
-            ->post(route('customer.cart.store'), ['product_id' => $product->id])
+            ->post(route('cart.store'), ['product_id' => $product->id])
             ->assertCreated();
 
         $this->assertDatabaseHas('carts', ['product_id' => $product->id, 'quantity' => 1]);
         $this->assertDatabaseCount('carts', 1);
 
         $this->actingAs($this->customer)
-            ->post(route('customer.cart.store'), ['product_id' => $product->id])
+            ->post(route('cart.store'), ['product_id' => $product->id])
             ->assertCreated();
 
         $this->actingAs($this->customer)
-            ->post(route('customer.cart.store'), ['product_id' => $product->id, 'quantity' => 4])
+            ->post(route('cart.store'), ['product_id' => $product->id, 'quantity' => 4])
             ->assertCreated();
 
         $this->assertDatabaseHas('carts', ['product_id' => $product->id, 'quantity' => 4]);
@@ -75,7 +74,7 @@ class CartTest extends TestCase
         $cart = Cart::factory()->create(['customer_id' => $this->customer]);
 
         $this->actingAs($this->customer)
-            ->delete(route('customer.cart.destroy', [$cart->id]))
+            ->delete(route('cart.destroy', [$cart->id]))
             ->assertSuccessful();
 
         $this->assertDatabaseCount('carts', 0);
@@ -87,7 +86,7 @@ class CartTest extends TestCase
         Cart::factory(10)->create(['customer_id' => User::factory()->create(['role' => 'Customer'])]);
 
         $this->actingAs($this->customer)
-            ->delete(route('customer.cart.clear'))
+            ->delete(route('cart.clear'))
             ->assertSuccessful();
 
         $this->assertDatabaseCount('carts', 10);

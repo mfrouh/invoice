@@ -24,8 +24,7 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required|exists:users,id|different:seller_id',
-            'seller_id' => 'required|exists:users,id|different:customer_id',
+            'customer_id' => 'required|exists:users,id',
             'total' => 'required|numeric',
             'invoice_qr_code' => 'required|uuid',
             'tax' => 'numeric|nullable',

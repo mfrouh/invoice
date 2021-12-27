@@ -20,7 +20,6 @@ class CreateProductsTable extends Migration
             $table->decimal('price');
             $table->string('image')->default('/images/products/1.png');
             $table->text('description');
-            $table->foreignId('seller_id')->index()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('category_id')->index()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

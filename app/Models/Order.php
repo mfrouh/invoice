@@ -12,7 +12,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_id', 'seller_id', 'total', 'invoice_qr_code', 'tax', 'ship', 'discount'];
+    protected $fillable = ['customer_id', 'total', 'invoice_qr_code', 'tax', 'ship', 'discount'];
 
     /**
      * Get the customer that owns the Order
@@ -22,16 +22,6 @@ class Order extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'customer_id');
-    }
-
-    /**
-     * Get the seller that owns the Order
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function seller(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'seller_id');
     }
 
     /**

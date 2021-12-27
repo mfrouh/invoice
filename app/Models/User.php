@@ -44,21 +44,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all of the orders for the Seller
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function orders(): HasMany
-    {
-        return $this->hasMany(Order::class, 'seller_id');
-    }
-
-    /**
      * Get all of the orders for the Customer
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function customerOrders(): HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'customer_id');
     }

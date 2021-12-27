@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Frontend\Customer;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OrderRequest;
-use App\Models\Cart;
-use App\Models\Order;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 
-class OrderController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('orderDetails')->where('customer_id', auth()->user()->id)->get();
+        $categories = Category::all();
 
-        return response()->json(['data' => $orders], 200);
+        return response()->json(['data' => $categories], 200);
     }
 
     /**
@@ -27,12 +26,9 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderRequest $request)
+    public function store(CategoryRequest $request)
     {
-        if (Cart::getContent()->count() == 0) {
-            return abort(403, 'Your Cart Is Empty');
-        }
-        Order::create($request->validated());
+        Category::create($request->validated());
 
         return response()->json(['message' => 'Success Created'], 201);
     }
@@ -40,24 +36,24 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Category $category)
     {
-        return response()->json(['data' => $order->with('orderDetails', 'invoice')], 200);
+        return response()->json(['data' => $category], 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(OrderRequest $request, order $order)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $order->update($request->validated());
+        $category->update($request->validated());
 
         return response()->json(['message' => 'Success Updated'], 200);
     }
@@ -65,12 +61,12 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Category $category)
     {
-        $order->delete();
+        $category->delete();
 
         return response()->json(['message' => 'Success Deleted'], 200);
     }

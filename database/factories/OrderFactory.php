@@ -15,7 +15,6 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'seller_id' => User::where('role', 'Seller')->get()->random()->id,
             'customer_id' => User::where('role', 'Customer')->get()->random()->id,
             'total' => rand(500, 900),
             'tax' => rand(2, 5),

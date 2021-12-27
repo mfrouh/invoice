@@ -22,7 +22,6 @@ class ProductFactory extends Factory
             'image' => '/images/products/1.png',
             'description' => 'description the product',
             'category_id' => Category::factory()->create()->id,
-            'seller_id' => User::where('role', 'Seller')->get()->random()->id,
         ];
     }
 }
