@@ -17,7 +17,7 @@ class ProductObserver
     public function creating(Product $product)
     {
         if (request()->hasFile('image')) {
-            $name = 'images/products/' . time() . rand(11111, 99999) . '.png';
+            $name = 'images/products/' . request()->file('image')->hashName();
             Image::make(request()->image)->resize(500, 500)->save(public_path($name));
             $product->image = $name;
         }
@@ -34,10 +34,9 @@ class ProductObserver
     {
         if (request()->hasFile('image')) {
             if (File::exists(public_path($product->image))) {
-                unlink(public_path($product->image));
+                File::delete(public_path($product->image));
             }
-
-            $name = 'images/products/' . time() . rand(11111, 99999) . '.png';
+            $name = 'images/products/' . request()->file('image')->hashName();
             Image::make(request()->image)->resize(500, 500)->save(public_path($name));
             $product->image = $name;
         }
@@ -49,10 +48,10 @@ class ProductObserver
      * @param  \App\Models\Product  $product
      * @return void
      */
-    public function deleting(Product $product)
+    public function deleted(Product $product)
     {
         if (File::exists(public_path($product->image))) {
-            unlink(public_path($product->image));
+            File::delete(public_path($product->image));
         }
     }
 }

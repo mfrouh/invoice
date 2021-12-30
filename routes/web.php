@@ -22,9 +22,17 @@ require __DIR__ . '/auth.php';
 Route::prefix('backend')->middleware(['auth', 'can:Admin'])->namespace('Backend')->group(function () {
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::get('orders', 'OrderController')->name('orders');
+    Route::post('category/change-status', 'CategoryController@changeStatus')->name('category.change-status');
+    Route::post('product/change-status', 'ProductController@changeStatus')->name('product.change-status');
     Route::apiResource('category', 'CategoryController');
     Route::apiResource('product', 'ProductController');
-
+    Route::apiResource('attribute', 'AttributeController');
+    Route::apiResource('value', 'ValueController');
+    Route::apiResource('variant', 'VariantController');
+    Route::apiResource('coupon', 'CouponController');
+    Route::apiResource('offer', 'OfferController');
+    Route::apiResource('review', 'ReviewController')->only('index');
+    Route::apiResource('setting', 'SettingController')->only(['index', 'store']);
 });
 
 Route::namespace ('Frontend')->middleware(['auth', 'can:Customer'])->group(function () {

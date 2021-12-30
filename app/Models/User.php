@@ -53,13 +53,4 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    /**
-     * Get all of the products for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function products(): HasMany
-    {
-        return $this->hasMany(Product::class, 'seller_id');
-    }
 }
