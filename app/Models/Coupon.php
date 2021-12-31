@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Offer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Coupon extends Model
@@ -24,7 +25,7 @@ class Coupon extends Model
 
     public function getTypeCouponAttribute()
     {
-        return $this->type == oFFER::FIXED ? __('Fixed') : __('Variable');
+        return $this->type == Offer::FIXED ? __('Fixed') : __('Variable');
     }
 
     public function getConditionCouponAttribute()

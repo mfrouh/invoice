@@ -16,7 +16,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'status', 'slug', 'price', 'image', 'description', 'category_id'];
+    protected $fillable = ['name', 'status','sku','slug', 'price', 'image', 'description', 'category_id'];
 
     protected $appends = ['price_after_offer', 'variant_price', 'variant_price_after_offer'];
 

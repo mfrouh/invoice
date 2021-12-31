@@ -11,7 +11,7 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_id', 'product_id', 'name', 'price', 'quantity', 'details', 'total_price'];
+    protected $fillable = ['customer_id', 'sku', 'product_id', 'name', 'price', 'quantity', 'details','total_price'];
 
     /**
      * Get the product that owns the OrderDetails
@@ -41,7 +41,12 @@ class Cart extends Model
     public function ScopeGetContent(Builder $query)
     {
         return $query->where('customer_id', auth()->id())->select(
-            ['product_id', 'name', 'price', 'quantity', 'details', 'total_price'])->get();
+            ['product_id', 'sku', 'name', 'price', 'quantity', 'details', 'total_price'])->get();
+    }
+
+    public function setTotalPriceAttribute($value)
+    {
+        $this->attributes['total_price'] = $this->quantity * $this->price;
     }
 
 }

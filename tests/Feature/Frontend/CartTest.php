@@ -44,28 +44,28 @@ class CartTest extends TestCase
         $product = Product::factory()->create();
 
         $this->actingAs($this->customer)
-            ->post(route('cart.store'), ['product_id' => $product->id, 'quantity' => 2])
+            ->post(route('cart.store'), ['sku' => $product->sku, 'quantity' => 2])
             ->assertCreated();
 
-        $this->assertDatabaseHas('carts', ['product_id' => $product->id, 'quantity' => 2]);
+        $this->assertDatabaseHas('carts', ['sku' => $product->sku, 'quantity' => 2]);
         $this->assertDatabaseCount('carts', 1);
 
         $this->actingAs($this->customer)
-            ->post(route('cart.store'), ['product_id' => $product->id])
+            ->post(route('cart.store'), ['sku' => $product->sku])
             ->assertCreated();
 
-        $this->assertDatabaseHas('carts', ['product_id' => $product->id, 'quantity' => 1]);
+        $this->assertDatabaseHas('carts', ['sku' => $product->sku, 'quantity' => 1]);
         $this->assertDatabaseCount('carts', 1);
 
         $this->actingAs($this->customer)
-            ->post(route('cart.store'), ['product_id' => $product->id])
+            ->post(route('cart.store'), ['sku' => $product->sku])
             ->assertCreated();
 
         $this->actingAs($this->customer)
-            ->post(route('cart.store'), ['product_id' => $product->id, 'quantity' => 4])
+            ->post(route('cart.store'), ['sku' => $product->sku, 'quantity' => 4])
             ->assertCreated();
 
-        $this->assertDatabaseHas('carts', ['product_id' => $product->id, 'quantity' => 4]);
+        $this->assertDatabaseHas('carts', ['sku' => $product->sku, 'quantity' => 4]);
         $this->assertDatabaseCount('carts', 1);
     }
 

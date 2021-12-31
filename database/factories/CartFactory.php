@@ -21,6 +21,7 @@ class CartFactory extends Factory
         return [
             'customer_id' => $user,
             'product_id' => $product->id,
+            'sku' => $product->sku,
             'name' => $product->name,
             'price' => $product->price,
             'quantity' => $quantity,

@@ -17,11 +17,18 @@ class ProductObserver
     public function creating(Product $product)
     {
         if (request()->hasFile('image')) {
-            $name = 'images/products/' . request()->file('image')->hashName();
-            Image::make(request()->image)->resize(500, 500)->save(public_path($name));
+            $name = request()->file('image')->storeAs('images/products', request()->file('image')->hashName(), 'public');
+            // $name = 'images/products/' . request()->file('image')->hashName();
+            // Image::make(request()->image)->resize(500, 500)->save(public_path($name));
             $product->image = $name;
         }
+        $product->sku = 'p' . $product->id;
+    }
 
+    public function created(Product $product)
+    {
+        $product->sku = 'p' . $product->id;
+        $product->save();
     }
 
     /**
@@ -36,8 +43,9 @@ class ProductObserver
             if (File::exists(public_path($product->image))) {
                 File::delete(public_path($product->image));
             }
-            $name = 'images/products/' . request()->file('image')->hashName();
-            Image::make(request()->image)->resize(500, 500)->save(public_path($name));
+            $name = request()->file('image')->storeAs('images/products', request()->file('image')->hashName(), 'public');
+            // $name = 'images/products/' . request()->file('image')->hashName();
+            // Image::make(request()->image)->resize(500, 500)->save(public_path($name));
             $product->image = $name;
         }
     }

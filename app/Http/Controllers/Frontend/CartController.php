@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -29,14 +30,25 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::findOrFail($request->product_id);
+        $check_variant = str_contains('_', $request->sku);
 
-        Cart::updateOrCreate(
-            ['product_id' => $product->id, 'customer_id' => auth()->id()],
-            ['quantity' => $request->quantity ?? 1, 'name' => $product->name,
-                'price' => $product->price, 'details' => $request->details,
+        if ($check_variant) {
+            $variant = Variant::where(['sku' => $request->sku])->firstOrFail();
+            $data =
+                ['variant_id' => $variant->id, 'product_id' => $variant->product->id, 'quantity' => $request->quantity ?? 1,
+                'name' => $variant->product->name, 'price' => $variant->price_after_offer, 'details' => $request->details,
+                'total_price' => $variant->price * ($request->quantity ?? 1),
+            ];
+        } else {
+            $product = Product::where(['sku' => $request->sku])->firstOrFail();
+            $data =
+                ['product_id' => $product->id, 'quantity' => $request->quantity ?? 1, 'name' => $product->name,
+                'price' => $product->price_after_offer, 'details' => $request->details,
                 'total_price' => $product->price * ($request->quantity ?? 1),
-            ]);
+            ];
+        }
+
+        Cart::updateOrCreate(['sku' => $request->sku, 'customer_id' => auth()->id()], $data);
 
         return response()->json(['message' => 'Success Created'], 201);
     }
@@ -51,13 +63,13 @@ class CartController extends Controller
     {
         $cart->delete();
 
-        return response()->json(['message' => 'Success Deleted'], 200);
+        return response()->json(['message' => 'Success Delete Item In Cart'], 200);
     }
 
     public function clear()
     {
         Cart::clear();
 
-        return response()->json(['message' => 'Success Clear'], 200);
+        return response()->json(['message' => 'Success Clear Cart'], 200);
     }
 }
