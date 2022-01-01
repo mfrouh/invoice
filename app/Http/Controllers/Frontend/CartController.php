@@ -30,7 +30,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $check_variant = str_contains('_', $request->sku);
+        $check_variant = str_contains($request->sku, '_');
 
         if ($check_variant) {
             $variant = Variant::where(['sku' => $request->sku])->firstOrFail();
@@ -48,9 +48,18 @@ class CartController extends Controller
             ];
         }
 
-        Cart::updateOrCreate(['sku' => $request->sku, 'customer_id' => auth()->id()], $data);
+        $cart = Cart::where('sku', $request->sku)->where('customer_id', auth()->id())->first();
 
-        return response()->json(['message' => 'Success Created'], 201);
+        if ($cart) {
+
+            $cart->update(['quantity' => $request->quantity ?? $cart->quantity + 1] + $data);
+
+            return response()->json(['message' => 'Success Update Your Cart'], 200);
+        } else {
+            Cart::create(['sku' => $request->sku, 'customer_id' => auth()->id()] + $data);
+
+            return response()->json(['message' => 'Success Create Item Cart'], 200);
+        }
     }
 
     /**

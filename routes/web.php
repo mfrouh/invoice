@@ -41,3 +41,7 @@ Route::namespace ('Frontend')->middleware(['auth', 'can:Customer'])->group(funct
     Route::delete('cart', 'CartController@clear')->name('cart.clear');
     Route::apiResource('cart', 'CartController')->except('update', 'show');
 });
+Route::namespace ('Setting')->middleware(['auth'])->group(function () {
+    Route::apiResource('profile-setting', 'ProfileSettingController')->only(['index', 'store']);
+    Route::apiResource('change-password', 'ChangePasswordController')->only(['index', 'store']);
+});

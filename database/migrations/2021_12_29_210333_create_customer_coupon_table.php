@@ -17,6 +17,8 @@ class CreateCustomerCouponTable extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('coupon_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->unique(['customer_id', 'order_id']);
             $table->timestamps();
         });
     }
