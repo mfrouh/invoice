@@ -23,6 +23,9 @@ class OrderObserver
         $order->invoice()->create(['url' => '/pdf']);
         Mail::to($order->customer->email)->send(new InvoiceMail());
         Notification::send($order->customer, new CreateOrderNotification($order));
+        //TODO: Add Coupon In Order
+        //TODO: Generate QrCode For Invoice
+        //TODO: Generate Pdf For Invoice
         Cart::clear();
     }
 

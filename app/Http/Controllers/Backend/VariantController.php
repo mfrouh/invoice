@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VariantRequest;
+use App\Http\Resources\VariantResource;
 use App\Models\Product;
 use App\Models\Variant;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class VariantController extends Controller
 
     public function index(Request $request)
     {
-        $variants = Variant::where('product_id', $request->product_id)->get();
+        $variants = VariantResource::collection(Variant::where('product_id', $request->product_id)->get());
 
         return response()->json(['data' => $variants], 200);
     }

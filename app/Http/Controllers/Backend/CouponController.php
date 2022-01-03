@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponRequest;
+use App\Http\Resources\CouponResource;
 use App\Models\Coupon;
 
 class CouponController extends Controller
 {
     public function index()
     {
-        $coupons = Coupon::all();
+        $coupons = CouponResource::collection(Coupon::all());
 
         return response()->json(['data' => $coupons], 200);
     }
@@ -36,7 +37,7 @@ class CouponController extends Controller
      */
     public function show(Coupon $coupon)
     {
-        return response()->json(['data' => $coupon], 200);
+        return response()->json(['data' => new CouponResource($coupon)], 200);
     }
 
     /**

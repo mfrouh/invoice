@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OfferRequest;
+use App\Http\Resources\OfferResource;
 use App\Models\Offer;
 
 class OfferController extends Controller
@@ -15,7 +16,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offers = Offer::all();
+        $offers = OfferResource::collection(Offer::all());
 
         return response()->json(['data' => $offers], 200);
     }
@@ -41,7 +42,7 @@ class OfferController extends Controller
      */
     public function show(Offer $offer)
     {
-        return response()->json(['data' => $offer], 200);
+        return response()->json(['data' => new OfferResource($offer)], 200);
     }
 
     /**

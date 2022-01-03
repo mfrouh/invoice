@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = ProductResource::collection(Product::all());
 
         return response()->json(['data' => $products], 200);
     }
@@ -41,7 +42,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return response()->json(['data' => $product], 200);
+        return response()->json(['data' => new ProductResource($product)], 200);
     }
 
     /**

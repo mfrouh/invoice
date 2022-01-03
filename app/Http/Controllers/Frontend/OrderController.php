@@ -32,6 +32,7 @@ class OrderController extends Controller
         if (Cart::getContent()->count() == 0) {
             return abort(403, 'Your Cart Is Empty');
         }
+        //TODO: Create Payment Integration
         Order::create($request->validated());
 
         return response()->json(['message' => 'Success Created'], 201);
