@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\ProductResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OfferResource extends JsonResource
@@ -16,12 +17,12 @@ class OfferResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_id' => $this->product_id,
             'type' => $this->type,
             'value' => $this->value,
             'message' => $this->message,
             'start' => $this->start,
             'end' => $this->end,
+            'product' => ProductResource::make($this->whenLoaded('product')),
         ];
     }
 }

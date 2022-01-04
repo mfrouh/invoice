@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\ValueResource;
+use App\Http\Resources\ProductResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AttributeResource extends JsonResource
@@ -17,8 +18,8 @@ class AttributeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_id' => $this->product_id,
             'name' => $this->name,
+            'product_id' => ProductResource::make($this->whenLoaded('product')),
             'values' => ValueResource::collection($this->whenLoaded('values')),
         ];
     }

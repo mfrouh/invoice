@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
+use App\Http\Resources\ProductResource;
+use App\Http\Resources\VariantResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CartResource extends JsonResource
@@ -16,15 +19,15 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'customer_id' => $this->customer_id,
             'sku' => $this->sku,
-            'variant_id' => $this->variant_id,
-            'product_id' => $this->product_id,
             'name' => $this->name,
             'price' => $this->price,
             'quantity' => $this->quantity,
             'details' => $this->details,
             'total_price' => $this->total_price,
+            'customer' => UserResource::make($this->whenLoaded('customer')),
+            'product' => ProductResource::make($this->whenLoaded('product')),
+            'variant' => VariantResource::make($this->whenLoaded('variant')),
         ];
     }
 }

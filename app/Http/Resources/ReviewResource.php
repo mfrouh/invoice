@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
+use App\Http\Resources\ProductResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReviewResource extends JsonResource
@@ -18,8 +20,8 @@ class ReviewResource extends JsonResource
             'id' => $this->id,
             'review' => $this->review,
             'rate' => $this->rate,
-            'customer_id' => $this->customer_id,
-            'product_id' => $this->product_id,
+            'customer' => UserResource::make($this->whenLoaded('customer')),
+            'product' => ProductResource::make($this->whenLoaded('product')),
         ];
     }
 }

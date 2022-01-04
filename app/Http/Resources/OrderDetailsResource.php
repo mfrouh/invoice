@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\OrderResource;
+use App\Http\Resources\ProductResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderDetailsResource extends JsonResource
@@ -16,13 +18,13 @@ class OrderDetailsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'order_id' => $this->order_id,
-            'product_id' => $this->product_id,
             'name' => $this->name,
             'price' => $this->price,
             'quantity' => $this->quantity,
             'details' => $this->details,
             'total_price' => $this->total_price,
+            'order' => OrderResource::make($this->whenLoaded('order')),
+            'product' => ProductResource::make($this->whenLoaded('product')),
         ];
     }
 }

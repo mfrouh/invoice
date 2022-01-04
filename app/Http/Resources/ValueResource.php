@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\VariantResource;
+use App\Http\Resources\AttributeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ValueResource extends JsonResource
@@ -18,7 +19,7 @@ class ValueResource extends JsonResource
         return [
             'id' => $this->id,
             'value' => $this->value,
-            'attribute_id' => $this->attribute_id,
+            'attribute' => AttributeResource::make($this->whenLoaded('attribute')),
             'variants' => VariantResource::collection($this->whenLoaded('variants')),
         ];
     }

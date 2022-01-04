@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Http\Resources\OrderResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InvoiceResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +15,9 @@ class InvoiceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'url' => $this->url,
-            'order' => OrderResource::make($this->whenLoaded('order')),
+            'id'=>$this->id,
+            'name'=>$this->name,
+            'email'=>$this->email,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CouponResource extends JsonResource
@@ -25,6 +26,7 @@ class CouponResource extends JsonResource
             'value' => $this->value,
             'message' => $this->message,
             'times' => $this->times,
+            'customers' => UserResource::collection($this->whenLoaded('customers')),
         ];
     }
 }

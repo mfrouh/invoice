@@ -138,4 +138,32 @@ class OfferTest extends TestCase
 
         $this->assertDatabaseMissing('offers', $this->data);
     }
+
+    public function test_offer_work_correct_success()
+    {
+        $product = Product::factory()->create();
+        $offer = Offer::factory()->create(['start' => now()->addDay(-1), 'product_id' => $product->id]);
+
+        $this->assertEquals($product->price_after_offer, $product->price - $offer->value);
+
+        $product = Product::factory()->create();
+        $offer = Offer::factory()->create(['start' => now()->addDay(-1), 'type' => 'VARIABLE', 'product_id' => $product->id]);
+
+        $total = $product->price - ($product->price * ($offer->value / 100));
+        $this->assertEquals($product->price_after_offer, $total);
+
+    }
+
+    public function test_offer_not_work_correct_success()
+    {
+        $product = Product::factory()->create();
+        Offer::factory()->create(['start' => now()->addDay(1), 'product_id' => $product->id]);
+
+        $this->assertEquals($product->price_after_offer, $product->price);
+
+        $product = Product::factory()->create();
+        Offer::factory()->create(['end' => now()->addDay(-1), 'product_id' => $product->id]);
+
+        $this->assertEquals($product->price_after_offer, $product->price);
+    }
 }

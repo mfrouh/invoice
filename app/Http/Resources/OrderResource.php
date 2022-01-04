@@ -25,7 +25,7 @@ class OrderResource extends JsonResource
             'ship' => $this->ship,
             'discount' => $this->discount,
             'orderDetails' => OrderDetailsResource::collection($this->whenLoaded('orderDetails')),
-            'invoice' => new InvoiceResource($this->whenLoaded('invoice')),
+            'invoice' => InvoiceResource::make($this->whenLoaded('invoice')),
         ];
     }
 }

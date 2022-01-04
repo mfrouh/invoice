@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\OfferResource;
+use App\Http\Resources\VariantResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -23,7 +26,9 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'image' => $this->image,
             'description' => $this->description,
-            'category_id' => $this->category_id,
+            'category' => CategoryResource::make($this->whenLoaded('category')),
+            'offer' => OfferResource::make($this->whenLoaded('offer')),
+            'variants' => VariantResource::collection($this->whenLoaded('variants')),
         ];
     }
 }
