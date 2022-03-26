@@ -2,11 +2,10 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Review;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ReviewTest extends TestCase
 {

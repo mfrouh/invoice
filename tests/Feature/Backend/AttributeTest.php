@@ -72,7 +72,6 @@ class AttributeTest extends TestCase
 
     public function test_failed_to_create_attribute()
     {
-
         $this->actingAs($this->admin)
             ->post(route('attribute.store'), ['name' => ''])
             ->assertSessionHasErrors('name');
@@ -86,7 +85,6 @@ class AttributeTest extends TestCase
         $this->actingAs($this->admin)
             ->post(route('attribute.store'), ['name' => 'attribute', 'product_id' => 2])
             ->assertSessionHasErrors('product_id');
-
     }
 
     public function test_admin_can_update_attribute_success()

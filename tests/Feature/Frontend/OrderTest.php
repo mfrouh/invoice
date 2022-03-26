@@ -15,7 +15,8 @@ use Tests\TestCase;
 
 class OrderTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
@@ -54,9 +55,11 @@ class OrderTest extends TestCase
         Notification::fake();
         Cart::factory(10)->create(['customer_id' => $this->customer]);
         $this->actingAs($this->customer)
-            ->post(route('order.store'),
+            ->post(
+                route('order.store'),
                 ['customer_id' => $this->customer->id,
-                    'total' => 199, 'invoice_qr_code' => $this->faker->uuid])
+                    'total'    => 199, 'invoice_qr_code' => $this->faker->uuid, ]
+            )
             ->assertCreated();
 
         $this->assertDatabaseCount('carts', 0);
@@ -69,9 +72,9 @@ class OrderTest extends TestCase
         });
 
         Notification::assertSentTo(
-            [$this->customer], CreateOrderNotification::class
+            [$this->customer],
+            CreateOrderNotification::class
         );
-
     }
 
     public function test_customer_cannot_create_order_where_cart_empty()
@@ -79,9 +82,11 @@ class OrderTest extends TestCase
         Mail::fake();
         Notification::fake();
         $this->actingAs($this->customer)
-            ->post(route('order.store'),
+            ->post(
+                route('order.store'),
                 ['customer_id' => $this->customer->id,
-                    'total' => 199, 'invoice_qr_code' => $this->faker->uuid])
+                    'total'    => 199, 'invoice_qr_code' => $this->faker->uuid, ]
+            )
             ->assertSeeText('Your Cart Is Empty')
             ->assertForbidden();
 
@@ -95,9 +100,8 @@ class OrderTest extends TestCase
         });
 
         Notification::assertNotSentTo(
-            [$this->customer], CreateOrderNotification::class
+            [$this->customer],
+            CreateOrderNotification::class
         );
-
     }
-
 }

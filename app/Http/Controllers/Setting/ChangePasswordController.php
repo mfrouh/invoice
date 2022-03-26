@@ -7,7 +7,6 @@ use App\Http\Requests\Setting\ChangePasswordRequest;
 
 class ChangePasswordController extends Controller
 {
-
     public function index()
     {
         return view('setting.change-password');

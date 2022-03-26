@@ -28,7 +28,7 @@ class ValueTest extends TestCase
             ->assertSuccessful();
 
         Value::factory(12)->create([
-            'attribute_id' => Attribute::factory()->create()->id]);
+            'attribute_id' => Attribute::factory()->create()->id, ]);
 
         $this->actingAs($this->admin)
             ->get(route('value.index', ['attribute_id' => 1]))
@@ -74,7 +74,6 @@ class ValueTest extends TestCase
 
     public function test_failed_to_create_value()
     {
-
         $this->actingAs($this->admin)
             ->post(route('value.store'), ['value' => ''])
             ->assertSessionHasErrors('value');
@@ -88,7 +87,6 @@ class ValueTest extends TestCase
         $this->actingAs($this->admin)
             ->post(route('value.store'), ['value' => 'value', 'attribute_id' => 2])
             ->assertSessionHasErrors('attribute_id');
-
     }
 
     public function test_admin_can_update_value_success()
@@ -139,5 +137,4 @@ class ValueTest extends TestCase
 
         $this->assertDatabaseMissing('values', ['value' => 'value']);
     }
-
 }

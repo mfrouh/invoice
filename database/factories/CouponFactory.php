@@ -15,15 +15,15 @@ class CouponFactory extends Factory
     public function definition()
     {
         return [
-            'code' => $this->faker->name,
-            'start' => now()->addDay(1),
-            'end' => now()->addDay(4),
-            'condition' => $this->faker->randomElement([Coupon::MORE, Coupon::LESS]),
+            'code'            => $this->faker->name,
+            'start'           => now()->addDay(1),
+            'end'             => now()->addDay(4),
+            'condition'       => $this->faker->randomElement([Coupon::MORE, Coupon::LESS]),
             'condition_value' => rand(1, 3),
-            'type' => $this->faker->randomElement([Coupon::FIXED, Coupon::VARIABLE]),
-            'value' => rand(40, 70),
-            'message' => 'Coupon Message',
-            'times' => rand(1, 4),
+            'type'            => $this->faker->randomElement([Coupon::FIXED, Coupon::VARIABLE]),
+            'value'           => rand(40, 70),
+            'message'         => 'Coupon Message',
+            'times'           => rand(1, 4),
         ];
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route:: as ('api.')->group(function () {
+Route::as('api.')->group(function () {
     Route::post('/login', 'Api\Auth\AuthController@login')->name('login');
     Route::post('/register', 'Api\Auth\AuthController@register')->name('register');
     Route::post('/me', 'Api\Auth\AuthController@me')->middleware('auth:sanctum')->name('userInformation');
@@ -36,16 +35,15 @@ Route:: as ('api.')->group(function () {
         Route::apiResource('setting', 'SettingController')->only(['store']);
     });
 
-    Route::namespace ('Frontend')->middleware(['auth:sanctum', 'can:Customer'])->group(function () {
+    Route::namespace('Frontend')->middleware(['auth:sanctum', 'can:Customer'])->group(function () {
         Route::get('dashboard', 'DashboardController')->name('dashboard');
         Route::apiResource('order', 'OrderController');
         Route::delete('cart', 'CartController@clear')->name('cart.clear');
         Route::apiResource('cart', 'CartController')->except('update', 'show');
     });
 
-    Route::namespace ('Setting')->middleware(['auth:sanctum'])->group(function () {
+    Route::namespace('Setting')->middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('profile-setting', 'ProfileSettingController')->only(['store']);
         Route::apiResource('change-password', 'ChangePasswordController')->only(['store']);
     });
-
 });

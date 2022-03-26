@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Attribute;
-use App\Models\Category;
-use App\Models\Offer;
-use App\Models\Variant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +12,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'status','sku','slug', 'price', 'image', 'description', 'category_id'];
+    protected $fillable = ['name', 'status', 'sku', 'slug', 'price', 'image', 'description', 'category_id'];
 
     protected $appends = ['price_after_offer', 'variant_price', 'variant_price_after_offer'];
 
@@ -31,7 +27,8 @@ class Product extends Model
     /**
      * Scope a query to only include active categories.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return void
      */
     public function scopeActive($query)
@@ -42,7 +39,8 @@ class Product extends Model
     /**
      * Scope a query to only include inactive categories.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return void
      */
     public function scopeInactive($query)
@@ -51,7 +49,7 @@ class Product extends Model
     }
 
     /**
-     * Get the category that owns the Product
+     * Get the category that owns the Product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -61,7 +59,7 @@ class Product extends Model
     }
 
     /**
-     * Get the offer associated with the Product
+     * Get the offer associated with the Product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -71,7 +69,7 @@ class Product extends Model
     }
 
     /**
-     * Get all of the variants for the Product
+     * Get all of the variants for the Product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -81,7 +79,7 @@ class Product extends Model
     }
 
     /**
-     * Get all of the attributes for the Product
+     * Get all of the attributes for the Product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -108,6 +106,7 @@ class Product extends Model
                 }
             }
         }
+
         return $this->price;
     }
 
@@ -119,8 +118,10 @@ class Product extends Model
             if ($min == $max) {
                 return $min;
             }
-            return '(' . $min . ',' . $max . ')';
+
+            return '('.$min.','.$max.')';
         }
+
         return $this->price;
     }
 
@@ -132,13 +133,15 @@ class Product extends Model
             if ($min == $max) {
                 return $min;
             }
-            return '(' . $min . ',' . $max . ')';
+
+            return '('.$min.','.$max.')';
         }
+
         return $this->price;
     }
 
     /**
-     * Change Product Status
+     * Change Product Status.
      *
      * @return void
      */
@@ -146,5 +149,4 @@ class Product extends Model
     {
         return $this->update(['status' => !$this->status]);
     }
-
 }

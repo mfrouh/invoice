@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,7 +23,8 @@ class Category extends Model
     /**
      * Scope a query to only include active categories.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return void
      */
     public function scopeActive($query)
@@ -35,7 +35,8 @@ class Category extends Model
     /**
      * Scope a query to only include inactive categories.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return void
      */
     public function scopeInactive($query)
@@ -44,7 +45,7 @@ class Category extends Model
     }
 
     /**
-     * Get all of the products for the Category
+     * Get all of the products for the Category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -54,7 +55,7 @@ class Category extends Model
     }
 
     /**
-     * Change Category Status
+     * Change Category Status.
      *
      * @return void
      */

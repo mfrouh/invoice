@@ -9,7 +9,8 @@ use Tests\TestCase;
 
 class ProfileSettingTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {

@@ -14,7 +14,8 @@ use Tests\TestCase;
 
 class CartTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
@@ -39,7 +40,6 @@ class CartTest extends TestCase
             ->assertJsonCount(10, 'data')
             ->assertSuccessful();
         $this->assertDatabaseCount('carts', 20);
-
     }
 
     public function test_customer_can_add_or_update_to_cart_with_quantity()
@@ -56,7 +56,6 @@ class CartTest extends TestCase
 
         $this->assertDatabaseHas('carts', ['sku' => $product->sku, 'quantity' => 5]);
         $this->assertDatabaseCount('carts', 1);
-
     }
 
     public function test_customer_can_add_or_update_to_cart_without_quantity()
@@ -103,7 +102,7 @@ class CartTest extends TestCase
         Value::factory(3)->create(['attribute_id' => 1]);
         Value::factory(3)->create(['attribute_id' => 2]);
         Value::factory(3)->create(['attribute_id' => 3]);
-        $variant = Variant::factory()->create(['product_id' => $product->id, 'sku' => 'p' . $product->id . '_1_4_7']);
+        $variant = Variant::factory()->create(['product_id' => $product->id, 'sku' => 'p'.$product->id.'_1_4_7']);
 
         $this->actingAs($this->customer)
             ->post(route('cart.store'), ['sku' => $variant->sku, 'quantity' => 3])
@@ -140,5 +139,4 @@ class CartTest extends TestCase
 
         $this->assertDatabaseCount('carts', 10);
     }
-
 }

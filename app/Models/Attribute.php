@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +16,7 @@ class Attribute extends Model
     protected $fillable = ['product_id', 'name'];
 
     /**
-     * Get the product that owns the Attribute
+     * Get the product that owns the Attribute.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -27,7 +26,7 @@ class Attribute extends Model
     }
 
     /**
-     * Get all of the values for the Attribute
+     * Get all of the values for the Attribute.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

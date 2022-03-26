@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Backend;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Setting;
-use Illuminate\Http\UploadedFile;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Tests\TestCase;
 
 class SettingTest extends TestCase
 {
@@ -31,7 +31,7 @@ class SettingTest extends TestCase
 
         $this->actingAs($this->admin)
             ->get(route('setting.index'))
-            ->assertJsonPath('data.name','website name')
+            ->assertJsonPath('data.name', 'website name')
             ->assertSuccessful();
     }
 

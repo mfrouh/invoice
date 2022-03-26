@@ -34,10 +34,10 @@ class ProductRequest extends FormRequest
     protected function createRequest()
     {
         return [
-            'name' => 'required|unique:products,name',
-            'status' => 'required|boolean',
-            'price' => 'required|numeric',
-            'image' => 'required|image',
+            'name'        => 'required|unique:products,name',
+            'status'      => 'required|boolean',
+            'price'       => 'required|numeric',
+            'image'       => 'required|image',
             'description' => 'required',
             'category_id' => 'required|exists:categories,id',
         ];
@@ -46,13 +46,12 @@ class ProductRequest extends FormRequest
     protected function updateRequest()
     {
         return [
-            'name' => 'required|unique:products,name,' . request()->route('product')->id,
-            'status' => 'required|boolean',
-            'price' => 'required|numeric',
-            'image' => 'required|image',
+            'name'        => 'required|unique:products,name,'.request()->route('product')->id,
+            'status'      => 'required|boolean',
+            'price'       => 'required|numeric',
+            'image'       => 'required|image',
             'description' => 'required',
             'category_id' => 'required|exists:categories,id',
         ];
     }
-
 }

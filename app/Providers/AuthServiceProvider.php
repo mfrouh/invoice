@@ -32,6 +32,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('Customer', function ($user) {
             return $user->role == 'Customer';
         });
-
     }
 }

@@ -35,7 +35,7 @@ class AttributeRequest extends FormRequest
     {
         return [
             'product_id' => 'required|integer|exists:products,id',
-            'name' => 'required|unique:attributes,name,NULL,id,product_id,' . request('product_id'),
+            'name'       => 'required|unique:attributes,name,NULL,id,product_id,'.request('product_id'),
         ];
     }
 
@@ -43,7 +43,7 @@ class AttributeRequest extends FormRequest
     {
         return [
             'product_id' => 'required|integer|exists:products,id',
-            'name' => 'required|unique:attributes,name,' . request()->route('attribute')->id . ',id,product_id,' . request('product_id'),
+            'name'       => 'required|unique:attributes,name,'.request()->route('attribute')->id.',id,product_id,'.request('product_id'),
         ];
     }
 }

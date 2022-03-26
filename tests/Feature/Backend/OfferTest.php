@@ -76,8 +76,8 @@ class OfferTest extends TestCase
     {
         $test_data =
             ['product_id' => 2, 'type' => 'fixed',
-            'value' => 'string value', 'message' => 'me',
-            'start' => now()->addDay(5), 'end' => now()];
+                'value'   => 'string value', 'message' => 'me',
+                'start'   => now()->addDay(5), 'end' => now(), ];
 
         foreach ($test_data as $key => $value) {
             $this->actingAs($this->admin)
@@ -108,8 +108,8 @@ class OfferTest extends TestCase
 
         $test_data =
             ['product_id' => 2, 'type' => 'fixed',
-            'value' => 'string value', 'message' => 'me',
-            'start' => now()->addDay(5), 'end' => now()];
+                'value'   => 'string value', 'message' => 'me',
+                'start'   => now()->addDay(5), 'end' => now(), ];
 
         foreach ($test_data as $key => $value) {
             $this->actingAs($this->admin)
@@ -151,7 +151,6 @@ class OfferTest extends TestCase
 
         $total = $product->price - ($product->price * ($offer->value / 100));
         $this->assertEquals($product->price_after_offer, $total);
-
     }
 
     public function test_offer_not_work_correct_success()

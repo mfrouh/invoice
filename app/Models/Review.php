@@ -15,7 +15,7 @@ class Review extends Model
     protected $fillable = ['review', 'rate', 'customer_id', 'product_id'];
 
     /**
-     * Get the product that owns the Review
+     * Get the product that owns the Review.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -25,7 +25,7 @@ class Review extends Model
     }
 
     /**
-     * Get the customer that owns the Review
+     * Get the customer that owns the Review.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

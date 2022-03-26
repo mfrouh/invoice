@@ -10,7 +10,8 @@ use Tests\TestCase;
 
 class CouponTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
@@ -18,11 +19,11 @@ class CouponTest extends TestCase
         $this->admin = User::factory()->create(['role' => 'Admin']);
         $this->customer = User::factory()->create(['role' => 'Customer']);
         $this->data =
-            ['code' => 'code 1', 'start' => now()->addDay(1), 'end' => now()->addDay(4),
-            'condition' => $this->faker->randomElement([Coupon::MORE, Coupon::LESS]),
-            'condition_value' => rand(1, 3), 'type' => $this->faker->randomElement([Coupon::FIXED, Coupon::VARIABLE]),
-            'value' => rand(40, 70), 'message' => 'Coupon Message', 'times' => rand(1, 4),
-        ];
+            ['code'               => 'code 1', 'start' => now()->addDay(1), 'end' => now()->addDay(4),
+                'condition'       => $this->faker->randomElement([Coupon::MORE, Coupon::LESS]),
+                'condition_value' => rand(1, 3), 'type' => $this->faker->randomElement([Coupon::FIXED, Coupon::VARIABLE]),
+                'value'           => rand(40, 70), 'message' => 'Coupon Message', 'times' => rand(1, 4),
+            ];
     }
 
     public function test_get_all_coupons()
@@ -80,7 +81,7 @@ class CouponTest extends TestCase
     {
         $test_data =
             ['code' => '', 'start' => now()->addDay(5), 'end' => now(), 'condition' => 'wrong condition', 'type' => 'wrong type', 'times' => '',
-        ];
+            ];
 
         foreach ($test_data as $key => $value) {
             $this->actingAs($this->admin)
@@ -106,7 +107,7 @@ class CouponTest extends TestCase
 
         $test_data =
             ['code' => '', 'start' => now()->addDay(5), 'end' => now(), 'condition' => 'wrong condition', 'type' => 'wrong type', 'times' => '',
-        ];
+            ];
 
         foreach ($test_data as $key => $value) {
             $this->actingAs($this->admin)

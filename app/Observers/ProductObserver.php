@@ -11,7 +11,8 @@ class ProductObserver
     /**
      * Handle the Product "creating" event.
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Product $product
+     *
      * @return void
      */
     public function creating(Product $product)
@@ -22,19 +23,20 @@ class ProductObserver
             // Image::make(request()->image)->resize(500, 500)->save(public_path($name));
             $product->image = $name;
         }
-        $product->sku = 'p' . $product->id;
+        $product->sku = 'p'.$product->id;
     }
 
     public function created(Product $product)
     {
-        $product->sku = 'p' . $product->id;
+        $product->sku = 'p'.$product->id;
         $product->save();
     }
 
     /**
      * Handle the Product "updating" event.
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Product $product
+     *
      * @return void
      */
     public function updating(Product $product)
@@ -53,7 +55,8 @@ class ProductObserver
     /**
      * Handle the Product "deleting" event.
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Product $product
+     *
      * @return void
      */
     public function deleted(Product $product)

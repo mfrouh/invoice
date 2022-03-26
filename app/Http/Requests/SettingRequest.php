@@ -24,13 +24,13 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|min:3',
-            'description'=>'required|min:3|max:100',
-            'logo'=>'nullable|image',
-            'facebook'=>'nullable|url',
-            'twitter'=>'nullable|url',
-            'instagram'=>'nullable|url',
-            'youtube'=>'nullable|url'
+            'name'       => 'required|min:3',
+            'description'=> 'required|min:3|max:100',
+            'logo'       => 'nullable|image',
+            'facebook'   => 'nullable|url',
+            'twitter'    => 'nullable|url',
+            'instagram'  => 'nullable|url',
+            'youtube'    => 'nullable|url',
         ];
     }
 }

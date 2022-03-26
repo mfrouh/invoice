@@ -14,7 +14,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'category' . rand(0, 9999),
+            'name'   => 'category'.rand(0, 9999),
             'status' => rand(0, 1),
         ];
     }

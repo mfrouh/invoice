@@ -13,7 +13,7 @@ class Invoice extends Model
     protected $fillable = ['order_id', 'url'];
 
     /**
-     * Get the order associated with the Invoice
+     * Get the order associated with the Invoice.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

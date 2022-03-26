@@ -37,23 +37,23 @@ class OfferRequest extends FormRequest
     {
         return [
             'product_id' => 'required|integer|exists:products,id|unique:offers,product_id',
-            'type' => ['required', Rule::in([Offer::FIXED, Offer::VARIABLE])],
-            'value' => 'required|numeric',
-            'message' => 'nullable|min:3|max:100',
-            'start' => 'required|before:end|after_or_equal:' . now(),
-            'end' => 'required|after:start|after:' . now(),
+            'type'       => ['required', Rule::in([Offer::FIXED, Offer::VARIABLE])],
+            'value'      => 'required|numeric',
+            'message'    => 'nullable|min:3|max:100',
+            'start'      => 'required|before:end|after_or_equal:'.now(),
+            'end'        => 'required|after:start|after:'.now(),
         ];
     }
 
     protected function updateRequest()
     {
         return [
-            'product_id' => 'required|integer|exists:products,id|unique:offers,product_id,' . request()->route('offer')->id,
-            'type' => ['required', Rule::in([Offer::FIXED, Offer::VARIABLE])],
-            'value' => 'required|numeric',
-            'message' => 'nullable|min:3|max:100',
-            'start' => 'required|before:end',
-            'end' => 'required|after:start',
+            'product_id' => 'required|integer|exists:products,id|unique:offers,product_id,'.request()->route('offer')->id,
+            'type'       => ['required', Rule::in([Offer::FIXED, Offer::VARIABLE])],
+            'value'      => 'required|numeric',
+            'message'    => 'nullable|min:3|max:100',
+            'start'      => 'required|before:end',
+            'end'        => 'required|after:start',
         ];
     }
 }

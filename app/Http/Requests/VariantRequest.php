@@ -35,8 +35,8 @@ class VariantRequest extends FormRequest
     {
         return [
             'product_id' => 'required|integer|exists:products,id',
-            'price' => 'required',
-            'quantity' => 'required|integer',
+            'price'      => 'required',
+            'quantity'   => 'required|integer',
         ];
     }
 
@@ -44,9 +44,9 @@ class VariantRequest extends FormRequest
     {
         return [
             'product_id' => 'required|integer|exists:products,id',
-            'sku' => 'required',
-            'price' => 'required',
-            'quantity' => 'required|integer',
+            'sku'        => 'required',
+            'price'      => 'required',
+            'quantity'   => 'required|integer',
         ];
     }
 }

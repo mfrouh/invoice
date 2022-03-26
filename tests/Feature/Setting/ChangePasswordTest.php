@@ -9,7 +9,8 @@ use Tests\TestCase;
 
 class ChangePasswordTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     protected function setUp(): void
     {
@@ -23,9 +24,9 @@ class ChangePasswordTest extends TestCase
     {
         $response = $this->actingAs($this->customer)
             ->post(route('change-password.store'), [
-                'old_password' => 'password',
-                'password' => 'newPassword',
-                'password_confirmation' => 'newPassword']);
+                'old_password'          => 'password',
+                'password'              => 'newPassword',
+                'password_confirmation' => 'newPassword', ]);
 
         $response->assertSuccessful();
 
@@ -41,9 +42,9 @@ class ChangePasswordTest extends TestCase
     {
         $response = $this->actingAs($this->customer)
             ->post(route('change-password.store'), [
-                'old_password' => 'wrongPassword',
-                'password' => 'newPassword',
-                'password_confirmation' => 'newPassword']);
+                'old_password'          => 'wrongPassword',
+                'password'              => 'newPassword',
+                'password_confirmation' => 'newPassword', ]);
 
         $response->assertSessionHasErrors('old_password');
         $this->assertAuthenticated();

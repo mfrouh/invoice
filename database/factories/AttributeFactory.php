@@ -16,7 +16,7 @@ class AttributeFactory extends Factory
     {
         return [
             'product_id' => Product::factory()->create()->id,
-            'name' => $this->faker->name,
+            'name'       => $this->faker->name,
         ];
     }
 }

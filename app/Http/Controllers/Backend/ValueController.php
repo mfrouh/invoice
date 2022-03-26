@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class ValueController extends Controller
 {
-
     public function index(Request $request)
     {
         $values = ValueResource::collection(Value::where('attribute_id', $request->attribute_id)->get());
@@ -41,6 +40,7 @@ class ValueController extends Controller
     {
         $value->variants()->delete();
         $value->delete();
+
         return response()->json(['message' => 'Success Deleted'], 200);
     }
 }

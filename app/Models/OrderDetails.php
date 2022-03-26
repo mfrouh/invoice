@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,7 +13,7 @@ class OrderDetails extends Model
     protected $fillable = ['order_id', 'product_id', 'name', 'price', 'quantity', 'details', 'total_price'];
 
     /**
-     * Get the order that owns the OrderDetails
+     * Get the order that owns the OrderDetails.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -25,7 +23,7 @@ class OrderDetails extends Model
     }
 
     /**
-     * Get the product that owns the OrderDetails
+     * Get the product that owns the OrderDetails.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

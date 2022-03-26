@@ -16,11 +16,11 @@ class OfferFactory extends Factory
     {
         return [
             'product_id' => Product::factory()->create()->id,
-            'type' => 'FIXED',
-            'value' => 12,
-            'message' => 'Create offer',
-            'start' => now()->addDay(1),
-            'end' => now()->addDay(3),
+            'type'       => 'FIXED',
+            'value'      => 12,
+            'message'    => 'Create offer',
+            'start'      => now()->addDay(1),
+            'end'        => now()->addDay(3),
         ];
     }
 }

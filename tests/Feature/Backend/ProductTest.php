@@ -22,9 +22,9 @@ class ProductTest extends TestCase
         $this->customer = User::factory()->create(['role' => 'Customer']);
         Storage::fake('avatars');
         $this->data =
-            ['name' => 'product', 'status' => 1,
-            'price' => 12, 'image' => UploadedFile::fake()->image('avatar.jpg'),
-            'description' => 'description the product', 'category_id' => Category::factory()->create()->id];
+            ['name'           => 'product', 'status' => 1,
+                'price'       => 12, 'image' => UploadedFile::fake()->image('avatar.jpg'),
+                'description' => 'description the product', 'category_id' => Category::factory()->create()->id, ];
     }
 
     public function test_get_all_products()
