@@ -24,9 +24,9 @@ class ProfileSettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
-            'email'=>'required|unique:users,email,'.auth()->user()->id,
-            'image'=>'image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'name' => 'required',
+            'email'=> 'required|unique:users,email,'.auth()->user()->id,
+            'image'=> 'image|nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

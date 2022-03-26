@@ -16,9 +16,9 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            'review' => 'review 1',
-            'rate' => '1',
-            'product_id' => Product::factory()->create()->id,
+            'review'      => 'review 1',
+            'rate'        => '1',
+            'product_id'  => Product::factory()->create()->id,
             'customer_id' => User::factory()->create(['role' => 'Customer']),
         ];
     }

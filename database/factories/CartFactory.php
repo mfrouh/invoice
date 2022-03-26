@@ -18,14 +18,15 @@ class CartFactory extends Factory
         $user = User::where('role', 'Customer')->get()->random()->id;
         $product = Product::factory()->create();
         $quantity = rand(1, 4);
+
         return [
             'customer_id' => $user,
-            'product_id' => $product->id,
-            'sku' => $product->sku,
-            'name' => $product->name,
-            'price' => $product->price,
-            'quantity' => $quantity,
-            'details' => '',
+            'product_id'  => $product->id,
+            'sku'         => $product->sku,
+            'name'        => $product->name,
+            'price'       => $product->price,
+            'quantity'    => $quantity,
+            'details'     => '',
             'total_price' => $quantity * $product->price,
         ];
     }

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Attribute;
-use App\Models\Variant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,7 +16,7 @@ class Value extends Model
     protected $fillable = ['value', 'attribute_id'];
 
     /**
-     * Get the attribute that owns the Value
+     * Get the attribute that owns the Value.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -28,7 +26,7 @@ class Value extends Model
     }
 
     /**
-     * The variants that belong to the Value
+     * The variants that belong to the Value.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -36,5 +34,4 @@ class Value extends Model
     {
         return $this->belongsToMany(Variant::class, 'variant_value', 'value_id', 'variant_id');
     }
-
 }

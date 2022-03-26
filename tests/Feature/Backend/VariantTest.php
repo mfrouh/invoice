@@ -70,7 +70,7 @@ class VariantTest extends TestCase
         $value = Value::factory()->create(['attribute_id' => $attribute->id]);
         $this->actingAs($this->admin)
             ->post(route('variant.store'), ["$value->id" => $value->id, 'price' => 45,
-                'quantity' => 27, 'product_id' => $attribute->product_id])
+                'quantity'                               => 27, 'product_id' => $attribute->product_id, ])
             ->assertCreated();
 
         $this->assertDatabaseHas('variants', ['price' => 45, 'quantity' => 27]);
@@ -78,7 +78,6 @@ class VariantTest extends TestCase
 
     public function test_failed_to_create_variant()
     {
-
         $this->actingAs($this->admin)
             ->post(route('variant.store'), ['quantity' => ''])
             ->assertSessionHasErrors('quantity');
@@ -92,7 +91,6 @@ class VariantTest extends TestCase
         $this->actingAs($this->admin)
             ->post(route('variant.store'), ['price' => 45, 'quantity' => 27, 'product_id' => 2])
             ->assertSessionHasErrors('product_id');
-
     }
 
     public function test_admin_can_update_variant_success()
@@ -133,5 +131,4 @@ class VariantTest extends TestCase
 
         $this->assertDatabaseMissing('variants', ['price' => 45, 'quantity' => 27]);
     }
-
 }

@@ -18,7 +18,7 @@ class Variant extends Model
     protected $appends = ['price_after_offer'];
 
     /**
-     * The values that belong to the Variant
+     * The values that belong to the Variant.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -28,7 +28,7 @@ class Variant extends Model
     }
 
     /**
-     * Get the product that owns the Variant
+     * Get the product that owns the Variant.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -52,6 +52,7 @@ class Variant extends Model
                 return $this->price - (($this->price * $product->offer->value) / 100);
             }
         }
+
         return $this->price;
     }
 }

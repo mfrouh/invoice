@@ -72,7 +72,6 @@ class CategoryTest extends TestCase
 
     public function test_failed_to_create_category()
     {
-
         $this->actingAs($this->admin)
             ->post(route('category.store'), ['name' => '', 'status' => 0])
             ->assertSessionHasErrors('name');
@@ -136,5 +135,4 @@ class CategoryTest extends TestCase
 
         $this->assertDatabaseMissing('categories', ['name' => 'category', 'status' => 1]);
     }
-
 }

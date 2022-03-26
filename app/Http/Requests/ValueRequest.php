@@ -35,7 +35,7 @@ class ValueRequest extends FormRequest
     {
         return [
             'attribute_id' => 'required|integer|exists:attributes,id',
-            'value' => 'required|unique:values,value,NULL,id,attribute_id,' . request('attribute_id'),
+            'value'        => 'required|unique:values,value,NULL,id,attribute_id,'.request('attribute_id'),
         ];
     }
 
@@ -43,7 +43,7 @@ class ValueRequest extends FormRequest
     {
         return [
             'attribute_id' => 'required|integer|exists:attributes,id',
-            'value' => 'required|unique:values,value,' . request()->route('value')->id . ',id,attribute_id,' . request('attribute_id'),
+            'value'        => 'required|unique:values,value,'.request()->route('value')->id.',id,attribute_id,'.request('attribute_id'),
         ];
     }
 }

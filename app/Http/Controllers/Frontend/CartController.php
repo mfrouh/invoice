@@ -25,7 +25,8 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -35,23 +36,22 @@ class CartController extends Controller
         if ($check_variant) {
             $variant = Variant::where(['sku' => $request->sku])->firstOrFail();
             $data =
-                ['variant_id' => $variant->id, 'product_id' => $variant->product->id, 'quantity' => $request->quantity ?? 1,
-                'name' => $variant->product->name, 'price' => $variant->price_after_offer, 'details' => $request->details,
-                'total_price' => $variant->price * ($request->quantity ?? 1),
-            ];
+                ['variant_id'     => $variant->id, 'product_id' => $variant->product->id, 'quantity' => $request->quantity ?? 1,
+                    'name'        => $variant->product->name, 'price' => $variant->price_after_offer, 'details' => $request->details,
+                    'total_price' => $variant->price * ($request->quantity ?? 1),
+                ];
         } else {
             $product = Product::where(['sku' => $request->sku])->firstOrFail();
             $data =
-                ['product_id' => $product->id, 'quantity' => $request->quantity ?? 1, 'name' => $product->name,
-                'price' => $product->price_after_offer, 'details' => $request->details,
-                'total_price' => $product->price * ($request->quantity ?? 1),
-            ];
+                ['product_id'     => $product->id, 'quantity' => $request->quantity ?? 1, 'name' => $product->name,
+                    'price'       => $product->price_after_offer, 'details' => $request->details,
+                    'total_price' => $product->price * ($request->quantity ?? 1),
+                ];
         }
 
         $cart = Cart::where('sku', $request->sku)->where('customer_id', auth()->id())->first();
 
         if ($cart) {
-
             $cart->update(['quantity' => $request->quantity ?? $cart->quantity + 1] + $data);
 
             return response()->json(['message' => 'Success Update Your Cart'], 200);
@@ -65,7 +65,8 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param \App\Models\Cart $cart
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Cart $cart)

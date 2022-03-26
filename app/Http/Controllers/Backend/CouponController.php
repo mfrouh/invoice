@@ -19,7 +19,8 @@ class CouponController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(CouponRequest $request)
@@ -32,7 +33,8 @@ class CouponController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Coupon  $coupon
+     * @param \App\Models\Coupon $coupon
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Coupon $coupon)
@@ -43,8 +45,9 @@ class CouponController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Coupon  $coupon
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Coupon       $coupon
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(CouponRequest $request, Coupon $coupon)
@@ -57,7 +60,8 @@ class CouponController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Coupon  $coupon
+     * @param \App\Models\Coupon $coupon
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Coupon $coupon)

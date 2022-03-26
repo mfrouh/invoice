@@ -34,7 +34,7 @@ class CategoryRequest extends FormRequest
     protected function createRequest()
     {
         return [
-            'name' => 'required|unique:categories,name',
+            'name'   => 'required|unique:categories,name',
             'status' => 'required|boolean',
         ];
     }
@@ -42,7 +42,7 @@ class CategoryRequest extends FormRequest
     protected function updateRequest()
     {
         return [
-            'name' => 'required|unique:categories,name,' . request()->route('category')->id,
+            'name'   => 'required|unique:categories,name,'.request()->route('category')->id,
             'status' => 'required|boolean',
         ];
     }

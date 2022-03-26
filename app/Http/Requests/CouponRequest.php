@@ -36,30 +36,30 @@ class CouponRequest extends FormRequest
     protected function createRequest()
     {
         return [
-            'code' => 'required|unique:coupons',
-            'start' => 'required|before:end|after_or_equal:' . now(),
-            'end' => 'required|after:start',
-            'condition' => ['nullable', Rule::in([Coupon::MORE, Coupon::LESS])],
+            'code'            => 'required|unique:coupons',
+            'start'           => 'required|before:end|after_or_equal:'.now(),
+            'end'             => 'required|after:start',
+            'condition'       => ['nullable', Rule::in([Coupon::MORE, Coupon::LESS])],
             'condition_value' => 'required_with:condition|nullable|numeric',
-            'type' => ['required', Rule::in([Coupon::FIXED, Coupon::VARIABLE])],
-            'value' => 'required',
-            'message' => 'nullable',
-            'times' => 'required',
+            'type'            => ['required', Rule::in([Coupon::FIXED, Coupon::VARIABLE])],
+            'value'           => 'required',
+            'message'         => 'nullable',
+            'times'           => 'required',
         ];
     }
 
     protected function updateRequest()
     {
         return [
-            'code' => 'required|unique:coupons,code,' . request()->route('coupon')->id,
-            'start' => 'required|before:end',
-            'end' => 'required|after:start',
-            'condition' => ['nullable', Rule::in([Coupon::MORE, Coupon::LESS])],
+            'code'            => 'required|unique:coupons,code,'.request()->route('coupon')->id,
+            'start'           => 'required|before:end',
+            'end'             => 'required|after:start',
+            'condition'       => ['nullable', Rule::in([Coupon::MORE, Coupon::LESS])],
             'condition_value' => 'required_with:condition|nullable|numeric',
-            'type' => ['required', Rule::in([Coupon::FIXED, Coupon::VARIABLE])],
-            'value' => 'required',
-            'message' => 'nullable',
-            'times' => 'required',
+            'type'            => ['required', Rule::in([Coupon::FIXED, Coupon::VARIABLE])],
+            'value'           => 'required',
+            'message'         => 'nullable',
+            'times'           => 'required',
         ];
     }
 }

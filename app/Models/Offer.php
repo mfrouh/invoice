@@ -22,7 +22,7 @@ class Offer extends Model
     protected $appends = ['is_active', 'active_status', 'type_offer', 'start_offer', 'end_offer'];
 
     /**
-     * Get the product that owns the Offer
+     * Get the product that owns the Offer.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

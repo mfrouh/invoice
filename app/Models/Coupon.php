@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Offer;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Coupon extends Model
@@ -33,6 +32,7 @@ class Coupon extends Model
         if ($this->condition) {
             return $this->condition == self::MORE ? __('More') : __('Less');
         }
+
         return '';
     }
 
@@ -67,7 +67,7 @@ class Coupon extends Model
     }
 
     /**
-     * The customers that belong to the Coupon
+     * The customers that belong to the Coupon.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -75,5 +75,4 @@ class Coupon extends Model
     {
         return $this->belongsToMany(User::class, 'customer_coupon', 'coupon_id', 'customer_id');
     }
-
 }

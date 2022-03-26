@@ -14,7 +14,8 @@ class OrderObserver
     /**
      * Handle the Order "created" event.
      *
-     * @param  \App\Models\Order  $order
+     * @param \App\Models\Order $order
+     *
      * @return void
      */
     public function created(Order $order)
@@ -28,5 +29,4 @@ class OrderObserver
         //TODO: Generate Pdf For Invoice
         Cart::clear();
     }
-
 }

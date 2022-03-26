@@ -32,10 +32,10 @@ class AuthTest extends TestCase
     public function test_user_can_register_api()
     {
         $response = $this->json('post', route('api.register'), [
-            'email' => 'customer@example.com',
-            'password' => 'password',
+            'email'                 => 'customer@example.com',
+            'password'              => 'password',
             'password_confirmation' => 'password',
-            'name' => 'customer',
+            'name'                  => 'customer',
         ]);
 
         $this->assertAuthenticated();
@@ -44,10 +44,10 @@ class AuthTest extends TestCase
     public function test_user_cannot_register_api()
     {
         $response = $this->json('post', route('api.register'), [
-            'email' => 'customer@example.com',
-            'password' => 'wrong-password',
+            'email'                 => 'customer@example.com',
+            'password'              => 'wrong-password',
             'password_confirmation' => 'password',
-            'name' => 'customer',
+            'name'                  => 'customer',
         ]);
 
         $this->assertGuest();
@@ -62,5 +62,4 @@ class AuthTest extends TestCase
         $response = $this->json('post', route('api.logout'))
             ->assertJsonPath('message', 'Close App');
     }
-
 }

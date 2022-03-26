@@ -14,7 +14,7 @@ class Cart extends Model
     protected $fillable = ['customer_id', 'sku', 'variant_id', 'product_id', 'name', 'price', 'quantity', 'details', 'total_price'];
 
     /**
-     * Get the product that owns the OrderDetails
+     * Get the product that owns the OrderDetails.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -24,7 +24,7 @@ class Cart extends Model
     }
 
     /**
-     * Get the customer that owns the Cart
+     * Get the customer that owns the Cart.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -41,12 +41,12 @@ class Cart extends Model
     public function ScopeGetContent(Builder $query)
     {
         return $query->where('customer_id', auth()->id())->select(
-            ['product_id', 'variant_id', 'sku', 'name', 'price', 'quantity', 'details', 'total_price'])->get();
+            ['product_id', 'variant_id', 'sku', 'name', 'price', 'quantity', 'details', 'total_price']
+        )->get();
     }
 
     public function setTotalPriceAttribute()
     {
         $this->attributes['total_price'] = $this->quantity * $this->price;
     }
-
 }

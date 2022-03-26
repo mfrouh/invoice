@@ -16,9 +16,9 @@ class VariantFactory extends Factory
     {
         return [
             'product_id' => Product::factory()->create()->id,
-            'sku' => $this->faker->name,
-            'price' => 34,
-            'quantity' => 4,
+            'sku'        => $this->faker->name,
+            'price'      => 34,
+            'quantity'   => 4,
         ];
     }
 }

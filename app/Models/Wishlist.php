@@ -15,7 +15,7 @@ class Wishlist extends Model
     protected $fillable = ['customer_id', 'product_id'];
 
     /**
-     * Get the product that owns the Wishlist
+     * Get the product that owns the Wishlist.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -25,7 +25,7 @@ class Wishlist extends Model
     }
 
     /**
-     * Get the customer that owns the Wishlist
+     * Get the customer that owns the Wishlist.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -33,5 +33,4 @@ class Wishlist extends Model
     {
         return $this->belongsTo(User::class, 'customer_id');
     }
-
 }

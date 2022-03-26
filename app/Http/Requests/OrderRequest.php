@@ -24,12 +24,12 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required|exists:users,id',
-            'total' => 'required|numeric',
+            'customer_id'     => 'required|exists:users,id',
+            'total'           => 'required|numeric',
             'invoice_qr_code' => 'required|uuid',
-            'tax' => 'numeric|nullable',
-            'ship' => 'numeric|nullable',
-            'discount' => 'numeric|nullable',
+            'tax'             => 'numeric|nullable',
+            'ship'            => 'numeric|nullable',
+            'discount'        => 'numeric|nullable',
         ];
     }
 }

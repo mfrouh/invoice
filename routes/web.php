@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
 
 Route::prefix('backend')->middleware(['auth', 'can:Admin'])->namespace('Backend')->group(function () {
     Route::get('dashboard', 'DashboardController')->name('dashboard');
@@ -35,13 +35,13 @@ Route::prefix('backend')->middleware(['auth', 'can:Admin'])->namespace('Backend'
     Route::apiResource('setting', 'SettingController')->only(['index', 'store']);
 });
 
-Route::namespace ('Frontend')->middleware(['auth', 'can:Customer'])->group(function () {
+Route::namespace('Frontend')->middleware(['auth', 'can:Customer'])->group(function () {
     Route::get('dashboard', 'DashboardController')->name('dashboard');
     Route::apiResource('order', 'OrderController');
     Route::delete('cart', 'CartController@clear')->name('cart.clear');
     Route::apiResource('cart', 'CartController')->except('update', 'show');
 });
-Route::namespace ('Setting')->middleware(['auth'])->group(function () {
+Route::namespace('Setting')->middleware(['auth'])->group(function () {
     Route::apiResource('profile-setting', 'ProfileSettingController')->only(['index', 'store']);
     Route::apiResource('change-password', 'ChangePasswordController')->only(['index', 'store']);
 });

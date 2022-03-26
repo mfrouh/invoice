@@ -24,7 +24,8 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(OrderRequest $request)
@@ -41,7 +42,8 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Order  $order
+     * @param \App\Models\Order $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Order $order)
@@ -52,8 +54,9 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Order        $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(OrderRequest $request, order $order)
@@ -66,7 +69,8 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order  $order
+     * @param \App\Models\Order $order
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)

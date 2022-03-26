@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class VariantController extends Controller
 {
-
     public function index(Request $request)
     {
         $variants = VariantResource::collection(Variant::where('product_id', $request->product_id)->get());
@@ -24,14 +23,14 @@ class VariantController extends Controller
         $product = Product::findOrFail($request->product_id);
         $sku_variant = '';
         foreach ($request->except(['price', 'product_id', 'quantity']) as $key => $value) {
-            $sku_variant .= '_' . $value;
+            $sku_variant .= '_'.$value;
             $values[] = $value;
         }
 
         if ($product->attributes->count() != count($values)) {
             return response()->json(['message' => 'Values Should Be Equal Count Attribute'], 403);
         }
-        $sku = 'p' . $product->id . $sku_variant;
+        $sku = 'p'.$product->id.$sku_variant;
         $check_sku_variant = Variant::where('sku', $sku)->first();
 
         if ($check_sku_variant) {
@@ -39,12 +38,12 @@ class VariantController extends Controller
         }
 
         $variant = Variant::create([
-            "product_id" => $request->product_id, "sku" => $sku,
-            'price' => $request->price, 'quantity' => $request->quantity]);
+            'product_id' => $request->product_id, 'sku' => $sku,
+            'price'      => $request->price, 'quantity' => $request->quantity, ]);
 
         $variant->values()->sync($values);
-        return response()->json(['message' => 'Success Created'], 201);
 
+        return response()->json(['message' => 'Success Created'], 201);
     }
 
     public function update(VariantRequest $request, Variant $variant)

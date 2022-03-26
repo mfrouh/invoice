@@ -15,7 +15,7 @@ class Order extends Model
     protected $fillable = ['customer_id', 'total', 'invoice_qr_code', 'tax', 'ship', 'discount'];
 
     /**
-     * Get the customer that owns the Order
+     * Get the customer that owns the Order.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -25,7 +25,7 @@ class Order extends Model
     }
 
     /**
-     * Get the invoice associated with the Order
+     * Get the invoice associated with the Order.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -35,7 +35,7 @@ class Order extends Model
     }
 
     /**
-     * Get all of the orderDetails for the Order
+     * Get all of the orderDetails for the Order.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

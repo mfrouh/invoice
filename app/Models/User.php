@@ -11,7 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,7 +47,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get all of the orders for the Customer
+     * Get all of the orders for the Customer.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -55,7 +57,7 @@ class User extends Authenticatable
     }
 
     /**
-     * The coupons that belong to the Customer
+     * The coupons that belong to the Customer.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -63,5 +65,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Coupon::class, 'customer_coupon', 'customer_id', 'coupon_id');
     }
-
 }

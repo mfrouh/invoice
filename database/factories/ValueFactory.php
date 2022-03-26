@@ -16,7 +16,7 @@ class ValueFactory extends Factory
     {
         return [
             'attribute_id' => Attribute::factory()->create()->id,
-            'value' => $this->faker->name,
+            'value'        => $this->faker->name,
         ];
     }
 }

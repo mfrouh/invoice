@@ -21,5 +21,4 @@ class SettingController extends Controller
 
         return response()->json(['message' => 'Success Updated'], 200);
     }
-
 }
