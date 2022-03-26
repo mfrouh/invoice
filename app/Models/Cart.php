@@ -44,7 +44,7 @@ class Cart extends Model
             ['product_id', 'variant_id', 'sku', 'name', 'price', 'quantity', 'details', 'total_price'])->get();
     }
 
-    public function setTotalPriceAttribute($value)
+    public function setTotalPriceAttribute()
     {
         $this->attributes['total_price'] = $this->quantity * $this->price;
     }
